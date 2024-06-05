@@ -1,0 +1,10 @@
+{
+    "[dart]": {
+        "editor.rulers": [200],
+        "editor.formatOnSave": false,
+        "editor.formatOnType": false,
+        "editor.selectionHighlight": false,
+        "editor.trimAutoWhitespace": false,
+      },
+    "dart.flutterSdkPath": "~/fvm/versions/3.13.0"
+}
