@@ -1,13 +1,12 @@
 // ignore: avoid_web_libraries_in_flutter
-
 import 'package:flutter/material.dart';
 import 'package:cloudflare_turnstile/src/controller/interface.dart' as i;
-import 'package:flutter_inappwebview_platform_interface/flutter_inappwebview_platform_interface.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
-class TurnstileController extends ChangeNotifier implements i.TurnstileController<PlatformInAppWebViewController> {
+class TurnstileController extends ChangeNotifier implements i.TurnstileController<InAppWebViewController> {
   /// The connector associated with the controller.
   @override
-  late PlatformInAppWebViewController connector;
+  late InAppWebViewController connector;
 
   String? _token;
 
@@ -34,7 +33,7 @@ class TurnstileController extends ChangeNotifier implements i.TurnstileControlle
   @override
   set widgetId(String id) => _widgetId = id;
 
-  /// The function can be called when widget mey become expired and
+  /// The function can be called when widget may become expired and
   /// needs to be refreshed.
   ///
   /// This method can only be called when [widgetId] is not null.
