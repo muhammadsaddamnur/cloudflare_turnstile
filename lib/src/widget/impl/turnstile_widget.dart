@@ -161,7 +161,7 @@ class _CloudFlareTurnstileState extends State<CloudFlareTurnstile> {
         ),
         shouldOverrideUrlLoading: (controller, navigationAction) async {
           var uri = navigationAction.request.url;
-          if (uri != null && (uri.toString().contains('terms') || uri.toString().contains('privacypolicy'))) {
+          if (uri != null && (uri.toString().contains('terms') || uri.toString().contains('privacypolicy') || uri.toString().contains('products/turnstile'))) {
             return NavigationActionPolicy.CANCEL;
           } else {
             return NavigationActionPolicy.ALLOW;
