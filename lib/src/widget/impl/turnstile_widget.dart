@@ -152,9 +152,13 @@ class _CloudFlareTurnstileState extends State<CloudFlareTurnstile> {
   Widget get _view => InAppWebView(
         initialData: InAppWebViewInitialData(
           data: data,
-          baseUrl: Uri.parse(widget.baseUrl),
+          baseUrl:WebUri.uri( Uri.parse(widget.baseUrl))
+          ,
         ),
         initialOptions: InAppWebViewGroupOptions(
+          // android: AndroidInAppWebViewOptions(
+          //   useHybridComposition: true,
+          // ),
           crossPlatform: InAppWebViewOptions(
             useShouldOverrideUrlLoading: true,
           ),
@@ -169,6 +173,7 @@ class _CloudFlareTurnstileState extends State<CloudFlareTurnstile> {
         },
         onWebViewCreated: (controller) => _onWebViewCreated(controller),
         onConsoleMessage: (controller, consoleMessage) {
+          print("Console message: ${consoleMessage.message}");
           if (consoleMessage.message.contains(RegExp('Turnstile'))) {
             debugPrint(consoleMessage.message);
             if (consoleMessage.messageLevel == ConsoleMessageLevel.ERROR) {
