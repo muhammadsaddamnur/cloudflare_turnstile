@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloudflare_turnstile/cloudflare_turnstile.dart';
 import 'package:cloudflare_turnstile/src/html_data.dart';
 import 'package:flutter/material.dart';
@@ -145,13 +147,26 @@ class _CloudFlareTurnstileState extends State<CloudFlareTurnstile> {
     widget.controller?.setConnector(controller);
   }
 
-  final double _borderWidth = 2.0;
+  final double _borderWidth = 0;
 
   Widget get _view => InAppWebView(
         initialData: InAppWebViewInitialData(
           data: data,
           baseUrl: Uri.parse(widget.baseUrl),
         ),
+        initialOptions: InAppWebViewGroupOptions(
+          crossPlatform: InAppWebViewOptions(
+            useShouldOverrideUrlLoading: true,
+          ),
+        ),
+        shouldOverrideUrlLoading: (controller, navigationAction) async {
+          var uri = navigationAction.request.url;
+          if (uri != null && (uri.toString().contains('terms') || uri.toString().contains('privacypolicy'))) {
+            return NavigationActionPolicy.CANCEL;
+          } else {
+            return NavigationActionPolicy.ALLOW;
+          }
+        },
         onWebViewCreated: (controller) => _onWebViewCreated(controller),
         onConsoleMessage: (controller, consoleMessage) {
           if (consoleMessage.message.contains(RegExp('Turnstile'))) {
